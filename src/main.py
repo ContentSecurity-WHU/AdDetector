@@ -47,7 +47,7 @@ if __name__ == '__main__':
                 total += 1
                 if torch.argmax(i) == torch.argmax(j):
                     hit += 1
-    logger.info(f'accuracy before training {hit / total}')
+    logger.info(f'accuracy before training {hit / total * 100}%')
 
     # 训练
     loss_func = torch.nn.CrossEntropyLoss()
@@ -73,4 +73,4 @@ if __name__ == '__main__':
                 total += 1
                 if torch.argmax(i) == torch.argmax(j):
                     hit += 1
-    logger.info(f'accuracy after training {hit / total}')
+    logger.info(f'accuracy after training {hit / total * 100}%')
