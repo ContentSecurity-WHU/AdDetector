@@ -1,2 +1,2 @@
-torch~=1.8.1+cu111
-jieba~=0.42.1
+torch
+jieba
