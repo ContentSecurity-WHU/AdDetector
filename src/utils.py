@@ -1,4 +1,5 @@
 from typing import List
+
 import jieba
 from torch import tensor
 
@@ -10,7 +11,7 @@ word2idx = dict()
 idx_cnt = 1  # 词汇编码从1开始，0用于padding
 
 
-def sentence2tensor(sentence: str, content_size: int, stop_words: List = None) -> tensor:
+def sentence2tensor(sentence: str, content_size: int, stop_words: List[str] = None) -> tensor:
     global idx_cnt
     words = jieba.lcut(sentence)  # 分词
     if stop_words:
