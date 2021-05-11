@@ -5,7 +5,6 @@ import torch
 
 if torch.cuda.is_available():
     device = 'cuda'
-    torch.set_default_tensor_type(torch.cuda.torch.FloatTensor)
 else:
     device = 'cpu'
 
@@ -34,11 +33,14 @@ class Logger:
 
 class Model:
     vocab_size = 10000
-    embedding_size = 50
+    embedding_size = 64
+    hidden_size = 64
+    num_layers = 3
+    dropout = 0.1
     content_size = 1000
 
 
 class Training:
     batch_size = 8
-    learning_rate = 0.1
+    learning_rate = 0.01
     epochs = 10

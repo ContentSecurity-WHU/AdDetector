@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 import settings
 from logger import Logger
 from dataset import Dataset
-from model import Model
+from model import BiLSTM
 from utils import sentence2tensor, num2one_hot, get_accuracy
 
 
@@ -16,11 +16,14 @@ if __name__ == '__main__':
     logger.info(f'using device: {settings.device}')
 
     # initialize model
-    model = Model(
+    model = BiLSTM(
         vocab_size=settings.Model.vocab_size,
         embedding_size=settings.Model.embedding_size,
+        hidden_size=settings.Model.hidden_size,
+        num_layers=settings.Model.num_layers,
+        dropout=settings.Model.dropout,
         content_size=settings.Model.content_size,
-    )
+    ).to(settings.device)
 
     # prepare training set
     training_ds = Dataset(
@@ -72,6 +75,7 @@ if __name__ == '__main__':
     x, target = next(iter(test_dl))
     with torch.no_grad():
         y = model(x)
+        target = target.to(settings.device)
         loss = loss_func(y, target)
         y = torch.argmax(y, dim=1)
         logger.info(

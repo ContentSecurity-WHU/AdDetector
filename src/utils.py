@@ -4,6 +4,7 @@ import jieba
 from torch import tensor
 
 from logger import Logger
+from settings import device
 
 jieba.setLogLevel('INFO')
 word2idx = dict()
@@ -26,13 +27,13 @@ def sentence2tensor(sentence: str, content_size: int, stop_words: List[str] = No
     while len(ret) < content_size:  # padding
         ret.append(0)
     ret = ret[:content_size]
-    return tensor(ret)
+    return tensor(ret, device=device)
 
 
 def num2one_hot(num: int, size: int) -> tensor:
     ret = [0 for _ in range(size)]
     ret[num] = 1
-    return tensor(ret)
+    return tensor(ret, device=device)
 
 
 def get_accuracy(predictions: tensor, targets: tensor) -> float:
