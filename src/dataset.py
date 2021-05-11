@@ -25,7 +25,7 @@ class Dataset(data.Dataset):
 
     def __getitem__(self, idx: int):
         text = None
-        with open(self.text_path, 'r',encoding="utf-8") as f:
+        with open(self.text_path, 'r', encoding="utf-8") as f:
             for i, line in enumerate(f):
                 if i == idx:
                     text = line

@@ -14,6 +14,8 @@ class BasicPath:
     src = pathlib.Path(__file__).absolute().parent
     project = src.parent
     data = project / 'data'
+    stop_words = data / 'stop_words.txt'
+    models = data / 'models'
 
 
 class TrainingPath:

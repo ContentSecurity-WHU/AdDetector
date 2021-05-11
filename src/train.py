@@ -25,6 +25,10 @@ if __name__ == '__main__':
         content_size=settings.Model.content_size,
     ).to(settings.device)
 
+    # read stop words
+    with open(settings.BasicPath.stop_words, 'r', encoding='utf8') as f:
+        stop_words = f.read().split('\n')
+
     # prepare training set
     training_ds = Dataset(
         text_path=settings.TrainingPath.texts,
@@ -32,7 +36,7 @@ if __name__ == '__main__':
         transform=partial(
             sentence2tensor,
             content_size=settings.Model.content_size,
-            stop_words=None
+            stop_words=stop_words
         ),
         target_transform=partial(
             num2one_hot,
@@ -48,7 +52,7 @@ if __name__ == '__main__':
         transform=partial(
             sentence2tensor,
             content_size=settings.Model.content_size,
-            stop_words=None
+            stop_words=stop_words
         )
     )
     test_dl = DataLoader(test_ds, batch_size=len(test_ds))
@@ -81,5 +85,9 @@ if __name__ == '__main__':
         logger.info(
             f'\n\n{"***ESTIMATION***": ^20}\n'
             f'Precision: {get_accuracy(y, target)}\n'
-            f'Loss: {loss}'
+            f'Loss: {loss}\n'
         )
+
+    # save the model
+    torch.save(model, settings.BasicPath.models / 'BiLSTM.model')
+    logger.info(f'model is saved in {settings.BasicPath.models / "BiLSTM.model"}')
