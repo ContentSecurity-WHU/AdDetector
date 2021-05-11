@@ -3,35 +3,42 @@ import logging
 
 import torch
 
-
 if torch.cuda.is_available():
     device = 'cuda'
+    torch.set_default_tensor_type(torch.cuda.torch.FloatTensor)
 else:
     device = 'cpu'
 
 
-class Path:
+class BasicPath:
+    # basic path
     src = pathlib.Path(__file__).absolute().parent
     project = src.parent
     data = project / 'data'
-    text = data / 'texts.txt'
-    label = data / 'labels.txt'
+
+
+class TrainingPath:
+    texts = BasicPath.data / 'training' / 'texts.txt'
+    labels = BasicPath.data / 'training' / 'labels.txt'
+
+
+class TestPath:
+    texts = BasicPath.data / 'test' / 'texts.txt'
+    labels = BasicPath.data / 'test' / 'labels.txt'
 
 
 class Logger:
     format = '[%(name)-10s] %(levelname)-8s: %(message)s'
-    level = logging.INFO
+    level = logging.DEBUG
 
 
 class Model:
-    vocab_size = 1000
+    vocab_size = 10000
     embedding_size = 50
-    hidden_size = 128
     content_size = 1000
-    label_num = 2
 
 
-class Train:
+class Training:
     batch_size = 8
     learning_rate = 0.1
-    epochs = 2
+    epochs = 10

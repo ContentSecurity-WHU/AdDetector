@@ -12,7 +12,7 @@ class Dataset(data.Dataset):
             transform: Callable = None,
             target_transform: Callable = None
     ):
-        self.text_path = text_path  # texts may be too large for the memory, so just note their path.
+        self.text_path = text_path  # texts may be too large for the memory, so just store their path.
         self.labels = list()
         with open(label_path, 'r') as f:
             for i in f.readlines():
@@ -37,12 +37,3 @@ class Dataset(data.Dataset):
             label = self.target_transform(label)
 
         return text, label
-
-
-if __name__ == '__main__':
-    import settings
-    dataset = Dataset(
-        text_path=settings.Path.text,
-        label_path=settings.Path.label
-    )
-    print(dataset[0])
