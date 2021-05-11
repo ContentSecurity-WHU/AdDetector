@@ -1,5 +1,6 @@
 import pathlib
 import logging
+import os
 
 import torch
 
@@ -46,3 +47,7 @@ class Training:
     batch_size = 8
     learning_rate = 0.01
     epochs = 10
+
+
+if not os.path.exists(BasicPath.models):
+    os.mkdir(BasicPath.models)
