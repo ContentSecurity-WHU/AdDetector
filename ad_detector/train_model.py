@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 import config
 from logger import Logger
 from dataset import Dataset
-from model import BiLSTM
+from models import BiLSTM
 from utils import sentence2tensor, num2one_hot, get_accuracy
 
 
