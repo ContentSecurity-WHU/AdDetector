@@ -3,27 +3,16 @@ from functools import partial
 import torch
 from torch.utils.data import DataLoader
 
-import config
-from logger import Logger
-from dataset import Dataset
-from models import BiLSTM
-from utils import sentence2tensor, num2one_hot, get_accuracy
+from ad_detector import config
+from ad_detector.logger import Logger
+from ad_detector.dataset import Dataset
+from ad_detector.utils import sentence2tensor, num2one_hot, get_accuracy
 
 
-if __name__ == '__main__':
+def train(model):
 
     logger = Logger('train')
     logger.info(f'using device: {config.device}')
-
-    # initialize model
-    model = BiLSTM(
-        vocab_size=config.model.vocab_size,
-        embedding_size=config.model.embedding_size,
-        hidden_size=config.model.hidden_size,
-        num_layers=config.model.num_layers,
-        dropout=config.model.dropout,
-        content_size=config.model.content_size,
-    ).to(config.device)
 
     # read stop words
     with open(config.path.stop_words, 'r', encoding='utf8') as f:

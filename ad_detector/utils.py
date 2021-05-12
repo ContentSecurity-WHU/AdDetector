@@ -5,8 +5,8 @@ from pathlib import Path
 import jieba
 from torch import tensor
 
-from logger import Logger
-from config import device
+from ad_detector.logger import Logger
+from ad_detector.config import device
 
 jieba.setLogLevel('INFO')
 
