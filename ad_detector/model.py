@@ -18,7 +18,7 @@ class BiLSTM(nn.Module):
             embedding_size, hidden_size,
             batch_first=True,
             bidirectional=True,
-            num_layers=3,
+            num_layers=num_layers,
             dropout=dropout
         )
         self.flatten = nn.Flatten()

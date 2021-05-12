@@ -1,12 +1,12 @@
 import logging
-import settings
+import config
 
 
 class Logger(logging.Logger):
-    def __init__(self, name: str, level=settings.Logger.level) -> None:
+    def __init__(self, name: str, level=config.logger.level) -> None:
         super().__init__(name, level=level)
-        formatter = logging.Formatter(settings.Logger.format)
+        formatter = logging.Formatter(config.logger.format_)
         handler = logging.StreamHandler()
         handler.setFormatter(formatter)
-        handler.setLevel(settings.Logger.level)
+        handler.setLevel(config.logger.level)
         self.addHandler(handler)

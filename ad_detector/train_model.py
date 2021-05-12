@@ -3,7 +3,7 @@ from functools import partial
 import torch
 from torch.utils.data import DataLoader
 
-import settings
+import config
 from logger import Logger
 from dataset import Dataset
 from model import BiLSTM
@@ -13,29 +13,30 @@ from utils import sentence2tensor, num2one_hot, get_accuracy
 if __name__ == '__main__':
 
     logger = Logger('train')
-    logger.info(f'using device: {settings.device}')
+    logger.info(f'using device: {config.device}')
 
     # initialize model
     model = BiLSTM(
-        vocab_size=settings.Model.vocab_size,
-        embedding_size=settings.Model.embedding_size,
-        hidden_size=settings.Model.hidden_size,
-        num_layers=settings.Model.num_layers,
-        dropout=settings.Model.dropout,
-        content_size=settings.Model.content_size,
-    ).to(settings.device)
+        vocab_size=config.model.vocab_size,
+        embedding_size=config.model.embedding_size,
+        hidden_size=config.model.hidden_size,
+        num_layers=config.model.num_layers,
+        dropout=config.model.dropout,
+        content_size=config.model.content_size,
+    ).to(config.device)
 
     # read stop words
-    with open(settings.BasicPath.stop_words, 'r', encoding='utf8') as f:
+    with open(config.path.stop_words, 'r', encoding='utf8') as f:
         stop_words = f.read().split('\n')
 
     # prepare training set
     training_ds = Dataset(
-        text_path=settings.TrainingPath.texts,
-        label_path=settings.TrainingPath.labels,
+        text_path=config.path.training_texts,
+        label_path=config.path.test_labels,
         transform=partial(
             sentence2tensor,
-            content_size=settings.Model.content_size,
+            content_size=config.model.content_size,
+            dict_path=config.utils.word2idx_path,
             stop_words=stop_words
         ),
         target_transform=partial(
@@ -43,15 +44,16 @@ if __name__ == '__main__':
             size=2
         )
     )
-    training_dl = DataLoader(training_ds, batch_size=settings.Training.batch_size, shuffle=True)
+    training_dl = DataLoader(training_ds, batch_size=config.training.batch_size, shuffle=True)
 
     # prepare test data
     test_ds = Dataset(
-        text_path=settings.TestPath.texts,
-        label_path=settings.TestPath.labels,
+        text_path=config.path.test_texts,
+        label_path=config.path.test_labels,
         transform=partial(
             sentence2tensor,
-            content_size=settings.Model.content_size,
+            content_size=config.model.content_size,
+            dict_path=config.utils.word2idx_path,
             stop_words=stop_words
         )
     )
@@ -59,8 +61,8 @@ if __name__ == '__main__':
 
     # train the model
     loss_func = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=settings.Training.learning_rate)
-    for epoch in range(settings.Training.epochs):
+    optimizer = torch.optim.SGD(model.parameters(), lr=config.training.learning_rate)
+    for epoch in range(config.training.epochs):
         total_loss = 0
         for x, target in training_dl:
             y = model(x)
@@ -79,7 +81,7 @@ if __name__ == '__main__':
     x, target = next(iter(test_dl))
     with torch.no_grad():
         y = model(x)
-        target = target.to(settings.device)
+        target = target.to(config.device)
         loss = loss_func(y, target)
         y = torch.argmax(y, dim=1)
         logger.info(
@@ -89,5 +91,5 @@ if __name__ == '__main__':
         )
 
     # save the model
-    torch.save(model, settings.BasicPath.models / 'BiLSTM.model')
-    logger.info(f'model is saved in {settings.BasicPath.models / "BiLSTM.model"}')
+    torch.save(model, config.path.models / 'BiLSTM.model')
+    logger.info(f'model is saved in {config.training.model_path}')

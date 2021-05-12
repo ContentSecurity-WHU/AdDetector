@@ -1,26 +1,35 @@
+import pickle
 from typing import List
+from pathlib import Path
 
 import jieba
 from torch import tensor
 
 from logger import Logger
-from settings import device
+from config import device
 
 jieba.setLogLevel('INFO')
-word2idx = dict()
-idx_cnt = 1  # word index starts from 1, and o is used for padding
 
 
-def sentence2tensor(sentence: str, content_size: int, stop_words: List[str] = None) -> tensor:
-    global idx_cnt
+def sentence2tensor(sentence: str, content_size: int, dict_path: Path, stop_words: List[str] = None) -> tensor:
+    try:
+        with open(dict_path, 'rb') as f:
+            word2idx = pickle.load(f)
+            idx_cnt = len(word2idx) + 1
+    except FileNotFoundError:
+        word2idx = dict()
+        idx_cnt = 1
+
     words = jieba.lcut(sentence)  # tokenize
-    if stop_words:
+    if stop_words is not None:
         words = [i for i in words if i not in stop_words]  # delete stop words
     ret = list()
     for i in words:  # word -> idx
         if i not in word2idx.keys():
             word2idx[i] = idx_cnt
             idx_cnt += 1
+            with open(dict_path, 'wb') as f:
+                pickle.dump(word2idx, f)
         ret.append(word2idx[i])
     if len(ret) > content_size:
         Logger('sentence2tensor').warning('content length out of size, result will be truncated.')
