@@ -51,6 +51,7 @@ def train(model):
     # train the model
     loss_func = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=config.training.learning_rate)
+    total_loss = float()
     for epoch in range(config.training.epochs):
         total_loss = 0
         for x, target in training_dl:
@@ -65,6 +66,7 @@ def train(model):
             f'epoch: {epoch + 1}\n'
             f'running loss: {total_loss / len(training_dl)}\n'
         )
+    training_loss = total_loss / len(training_dl)
 
     # estimate the model
     x, target = next(iter(test_dl))
@@ -78,7 +80,10 @@ def train(model):
             f'Precision: {get_accuracy(y, target)}\n'
             f'Loss: {loss}\n'
         )
+    test_loss = loss
 
     # save the model
     torch.save(model, config.path.models / 'BiLSTM.model')
     logger.info(f'model is saved in {config.training.model_path}')
+
+    return training_loss, test_loss
