@@ -10,7 +10,7 @@ from ad_detector.dataset import Dataset
 from ad_detector.utils import sentence2tensor, num2one_hot, get_accuracy
 
 
-def train(model) -> Tuple[List, List]:
+def train(model) -> Tuple[List, List, List]:
     logger = Logger('train')
     logger.info(f'using device: {config.device}')
 
@@ -54,8 +54,10 @@ def train(model) -> Tuple[List, List]:
     total_loss = float()
     test_loss = list()
     training_loss = list()
+    epoch_list = list()
     for epoch in range(config.training.epochs):
         total_loss = 0
+        epoch_list.append(epoch)
         for x, target in training_dl:
             y = model(x)
             target = torch.argmax(target, dim=1)  # ont hot -> argument max
@@ -85,4 +87,4 @@ def train(model) -> Tuple[List, List]:
     torch.save(model, config.path.models / 'BiLSTM.model')
     logger.info(f'model is saved in {config.training.model_path}')
 
-    return training_loss, test_loss
+    return training_loss, test_loss, epoch_list
