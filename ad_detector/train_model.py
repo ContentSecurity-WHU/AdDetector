@@ -1,4 +1,5 @@
 from functools import partial
+from typing import Tuple, List
 
 import torch
 from torch.utils.data import DataLoader
@@ -9,8 +10,7 @@ from ad_detector.dataset import Dataset
 from ad_detector.utils import sentence2tensor, num2one_hot, get_accuracy
 
 
-def train(model):
-
+def train(model) -> Tuple[List, List]:
     logger = Logger('train')
     logger.info(f'using device: {config.device}')
 
@@ -52,6 +52,8 @@ def train(model):
     loss_func = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=config.training.learning_rate)
     total_loss = float()
+    test_loss = list()
+    training_loss = list()
     for epoch in range(config.training.epochs):
         total_loss = 0
         for x, target in training_dl:
@@ -62,25 +64,22 @@ def train(model):
             loss.backward()
             optimizer.step()
             total_loss += loss
-        logger.debug(
-            f'epoch: {epoch + 1}\n'
-            f'running loss: {total_loss / len(training_dl)}\n'
-        )
-    training_loss = total_loss / len(training_dl)
-
-    # estimate the model
-    x, target = next(iter(test_dl))
-    with torch.no_grad():
-        y = model(x)
-        target = target.to(config.device)
-        loss = loss_func(y, target)
-        y = torch.argmax(y, dim=1)
-        logger.info(
-            f'\n\n{"***ESTIMATION***": ^20}\n'
-            f'Precision: {get_accuracy(y, target)}\n'
-            f'Loss: {loss}\n'
-        )
-    test_loss = loss
+        # estimate the model
+        x, target = next(iter(test_dl))
+        with torch.no_grad():
+            y = model(x)
+            target = target.to(config.device)
+            loss = loss_func(y, target)
+            y = torch.argmax(y, dim=1)
+            logger.debug(
+                f'\n'
+                f'epoch: {epoch + 1}\n'
+                f'training loss: {total_loss / len(training_dl)}\n'
+                f'test loss: {loss}\n'
+                f'precision on test set: {get_accuracy(y, target)}\n'
+            )
+        training_loss.append(total_loss / len(training_dl))
+        test_loss.append(loss)
 
     # save the model
     torch.save(model, config.path.models / 'BiLSTM.model')
