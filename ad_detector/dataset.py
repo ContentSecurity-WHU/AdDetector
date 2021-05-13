@@ -12,7 +12,8 @@ class Dataset(data.Dataset):
             transform: Callable = None,
             target_transform: Callable = None
     ):
-        self.text_path = text_path  # texts may be too large for the memory, so just store their path.
+        with open(text_path, 'r', encoding='utf8') as f:
+            self.texts = f.read().split('\n')
         self.labels = list()
         with open(label_path, 'r') as f:
             for i in f.readlines():
@@ -24,11 +25,7 @@ class Dataset(data.Dataset):
         return len(self.labels)
 
     def __getitem__(self, idx: int):
-        text = None
-        with open(self.text_path, 'r', encoding="utf-8") as f:
-            for i, line in enumerate(f):
-                if i == idx:
-                    text = line
+        text = self.texts[idx]
         label = self.labels[idx]
 
         if self.transform:

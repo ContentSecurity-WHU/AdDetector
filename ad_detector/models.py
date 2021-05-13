@@ -23,9 +23,7 @@ class BiLSTM(nn.Module):
         )
         self.flatten = nn.Flatten()
         self.l_r_stack = nn.Sequential(
-            nn.Linear(2 * hidden_size * content_size, 1024),
-            nn.ReLU(),
-            nn.Linear(1024, 256),
+            nn.Linear(2 * hidden_size * content_size, 256),
             nn.ReLU(),
             nn.Linear(256, 128),
             nn.ReLU(),

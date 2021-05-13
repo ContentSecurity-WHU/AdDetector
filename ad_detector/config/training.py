@@ -1,6 +1,6 @@
 from . import path
 
-batch_size = 4
-learning_rate = 1e-15
-epochs = 10
+batch_size = 100
+learning_rate = 0.0001
+epochs = 5
 model_path = path.models / "BiLSTM.model"

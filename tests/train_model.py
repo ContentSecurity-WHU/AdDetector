@@ -17,13 +17,13 @@ def batchsize_plot():
 
     for i in range(4):
         config.training.batch_sizes = batch_sizes[i]
-        train_loss_list, test_loss_list,Epoch= train(model)
+        train_loss_list, test_loss_list, Epoch = train(model)
         train_loss_dict['{}'.format(i)] = train_loss_list
         test_loss_dict['{}'.format(i)] = test_loss_list
         Epoch_dict['{}'.format(i)] = Epoch
 
     # visualization
-    #train_loss
+    # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="4")
@@ -38,14 +38,13 @@ def batchsize_plot():
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
-    #test_loss
+    # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
     plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="4")
     plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="8")
     plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="16")
     plt.plot(Epoch_dict['3'], test_loss_dict['3'], linewidth=2, color='y', label="32")
-
 
     plt.ylim((0, 1))
     y_ticks = np.arange(0, 1, 0.05)
@@ -72,7 +71,7 @@ def hiddensize_plot():
         Epoch_dict['{}'.format(i)] = Epoch
 
     # visualization
-    #train_loss
+    # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="64")
@@ -86,7 +85,7 @@ def hiddensize_plot():
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
-    #test_loss
+    # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
     plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="64")
@@ -118,7 +117,7 @@ def embeddingsize_plot():
         Epoch_dict['{}'.format(i)] = Epoch
 
     # visualization
-    #train_loss
+    # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="64")
@@ -132,7 +131,7 @@ def embeddingsize_plot():
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
-    #test_loss
+    # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
     plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="64")
@@ -163,7 +162,7 @@ def dropout_plot():
         test_loss_dict['{}'.format(i)] = test_loss_list
 
     # visualization
-    #train_loss
+    # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.1")
@@ -179,7 +178,7 @@ def dropout_plot():
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
-    #test_loss
+    # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
     plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="0.1")
@@ -210,7 +209,8 @@ if __name__ == '__main__':
         content_size=config.model.content_size,
     ).to(config.device)
 
+    train(model)
     # batchsize_plot()
     # hiddensize_plot()
-    embeddingsize_plot()
+    # embeddingsize_plot()
     # dropout_plot()
