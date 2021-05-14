@@ -32,6 +32,8 @@ def batchsize_plot():
     plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="125")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
     plt.title("change batch_sizes in train", fontsize=10)
@@ -47,13 +49,16 @@ def batchsize_plot():
     plt.plot(Epoch_dict['3'], test_loss_dict['3'], linewidth=2, color='y', label="125")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
-    plt.title("model = {}, change learning_rate in test".format(model), fontsize=10)
+    plt.title("change batch_sizes in test".format(model), fontsize=10)
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
     plt.legend()
+    plt.savefig("batchsize_plot.jpg")
     plt.show()
 
 
@@ -79,6 +84,8 @@ def hiddensize_plot():
     plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="256")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
     plt.title("change hidden_sizes in train", fontsize=10)
@@ -93,6 +100,8 @@ def hiddensize_plot():
     plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="256")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
     plt.title("change hidden_sizes in test", fontsize=10)
@@ -100,6 +109,7 @@ def hiddensize_plot():
     plt.ylabel("loss", fontsize=14)
 
     plt.legend()
+    plt.savefig("hiddensize_plot.jpg")
     plt.show()
 
 
@@ -125,6 +135,8 @@ def embeddingsize_plot():
     plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="256")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
     plt.title("change embedding_sizes in train", fontsize=10)
@@ -139,6 +151,8 @@ def embeddingsize_plot():
     plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="256")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
     plt.title("change embedding_sizes in test", fontsize=10)
@@ -146,7 +160,8 @@ def embeddingsize_plot():
     plt.ylabel("loss", fontsize=14)
 
     plt.legend()
-    plt.show()
+    plt.savefig("embeddingsize_plot.jpg")
+    #plt.show()
 
 
 def dropout_plot():
@@ -172,6 +187,8 @@ def dropout_plot():
     plt.plot(Epoch_dict['4'], train_loss_dict['4'], linewidth=2, color='m', label="0.5")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
     plt.title("change dropout in train", fontsize=10)
@@ -188,6 +205,8 @@ def dropout_plot():
     plt.plot(Epoch_dict['4'], test_loss_dict['4'], linewidth=2, color='m', label="0.5")
 
     plt.ylim((0, 1))
+    x_ticks = np.arange(0, config.training.epochs, 0.5)
+    plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
     plt.title("change dropout in test", fontsize=10)
@@ -195,7 +214,8 @@ def dropout_plot():
     plt.ylabel("loss", fontsize=14)
 
     plt.legend()
-    plt.show()
+    plt.savefig("dropout_plot.jpg")
+    #plt.show()
 
 
 if __name__ == '__main__':
@@ -210,7 +230,7 @@ if __name__ == '__main__':
     ).to(config.device)
 
     #train(model)
-    # batchsize_plot()
+    #batchsize_plot()
     # hiddensize_plot()
     embeddingsize_plot()
-    # dropout_plot()
+    dropout_plot()
