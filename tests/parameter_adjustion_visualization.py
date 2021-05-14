@@ -26,10 +26,10 @@ def batchsize_plot():
     # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
-    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="50")
-    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="75")
-    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="100")
-    plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="125")
+    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="4")
+    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="8")
+    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="16")
+    plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="32")
 
     plt.ylim((0, 1))
     y_ticks = np.arange(0, 1, 0.05)
@@ -49,7 +49,7 @@ def batchsize_plot():
     plt.ylim((0, 1))
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
-    plt.title("model = {}, change learning_rate in dev".format(model), fontsize=10)
+    plt.title("model = {}, change learning_rate in test".format(model), fontsize=10)
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
@@ -95,7 +95,7 @@ def hiddensize_plot():
     plt.ylim((0, 1))
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
-    plt.title("change hidden_sizes in train", fontsize=10)
+    plt.title("change hidden_sizes in test", fontsize=10)
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
@@ -141,7 +141,7 @@ def embeddingsize_plot():
     plt.ylim((0, 1))
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
-    plt.title("change embedding_sizes in train", fontsize=10)
+    plt.title("change embedding_sizes in test", fontsize=10)
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
@@ -190,7 +190,7 @@ def dropout_plot():
     plt.ylim((0, 1))
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
-    plt.title("change dropout in train", fontsize=10)
+    plt.title("change dropout in test", fontsize=10)
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
