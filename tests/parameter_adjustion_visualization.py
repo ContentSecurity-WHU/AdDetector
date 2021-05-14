@@ -163,58 +163,57 @@ def embeddingsize_plot():
     plt.savefig("embeddingsize_plot.jpg")
     #plt.show()
 
-
-def dropout_plot():
+def learning_rate_plot():
     train_loss_dict = {}
     test_loss_dict = {}
     Epoch_dict = {}
-    dropout = [0.4, 0.5,0.6]
+    learningrates = [0.0001, 0.001, 0.01, 0.1]
 
-    for i in range(3):
-        config.model.dropout = dropout[i]
+    for i in range(4):
+        config.training.learning_rate = learningrates[i]
         train_loss_list, test_loss_list, Epoch = train(model)
         train_loss_dict['{}'.format(i)] = train_loss_list
         test_loss_dict['{}'.format(i)] = test_loss_list
+        Epoch_dict['{}'.format(i)] = Epoch
 
     # visualization
     # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
-    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.4")
-    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="0.5")
-    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="0.6")
-
+    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.0001")
+    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="0.001")
+    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="0.01")
+    plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="0.1")
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
     plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
-    plt.title("change dropout in train", fontsize=10)
+    plt.title("change learning_rate in train", fontsize=10)
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
     # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
-    plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="0.4")
-    plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="0.5")
-    plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="0.6")
-
+    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.0001")
+    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="0.001")
+    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="0.01")
+    plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="0.1")
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
     plt.xticks(x_ticks)
     y_ticks = np.arange(0, 1, 0.05)
     plt.yticks(y_ticks)  # 设置刻度
-    plt.title("change dropout in test", fontsize=10)
+    plt.title("change learning_rate in test", fontsize=10)
     plt.xlabel("Epoch", fontsize=14)
     plt.ylabel("loss", fontsize=14)
 
     plt.legend()
-    plt.savefig("dropout_plot.jpg")
+    plt.savefig("learning_rate_plot.jpg")
     #plt.show()
-
 
 if __name__ == '__main__':
     # initialize model
@@ -230,5 +229,5 @@ if __name__ == '__main__':
     #train(model)
     #batchsize_plot()
     #hiddensize_plot()
-    embeddingsize_plot()
-    dropout_plot()
+    #embeddingsize_plot()
+    learning_rate_plot()
