@@ -66,7 +66,7 @@ def hiddensize_plot():
     train_loss_dict = {}
     test_loss_dict = {}
     Epoch_dict = {}
-    hidden_sizes = [64, 128, 256]
+    hidden_sizes = [32, 64, 128]
 
     for i in range(3):
         config.model.hidden_size = hidden_sizes[i]
@@ -79,9 +79,9 @@ def hiddensize_plot():
     # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
-    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="64")
-    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="128")
-    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="256")
+    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="32")
+    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="64")
+    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="128")
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -95,9 +95,9 @@ def hiddensize_plot():
     # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
-    plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="64")
-    plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="128")
-    plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="256")
+    plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="32")
+    plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="64")
+    plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="128")
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -117,7 +117,7 @@ def embeddingsize_plot():
     train_loss_dict = {}
     test_loss_dict = {}
     Epoch_dict = {}
-    embedding_sizes = [64, 128, 256]
+    embedding_sizes = [32, 64, 128]
 
     for i in range(3):
         config.model.embedding_sizes = embedding_sizes[i]
@@ -130,9 +130,9 @@ def embeddingsize_plot():
     # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
-    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="64")
-    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="128")
-    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="256")
+    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="32")
+    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="64")
+    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="128")
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -146,9 +146,9 @@ def embeddingsize_plot():
     # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
-    plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="64")
-    plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="128")
-    plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="256")
+    plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="32")
+    plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="64")
+    plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="128")
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -168,7 +168,7 @@ def dropout_plot():
     train_loss_dict = {}
     test_loss_dict = {}
     Epoch_dict = {}
-    dropout = [0.1, 0.2, 0.3, 0.4, 0.5]
+    dropout = [0.4, 0.5,0.6]
 
     for i in range(3):
         config.model.dropout = dropout[i]
@@ -180,11 +180,10 @@ def dropout_plot():
     # train_loss
     plt.figure(1)
     plt.subplot(1, 2, 1)
-    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.1")
-    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="0.2")
-    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="0.3")
-    plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="0.4")
-    plt.plot(Epoch_dict['4'], train_loss_dict['4'], linewidth=2, color='m', label="0.5")
+    plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.4")
+    plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="0.5")
+    plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="0.6")
+
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -198,11 +197,10 @@ def dropout_plot():
     # test_loss
     plt.figure(1)
     plt.subplot(1, 2, 2)
-    plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="0.1")
-    plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="0.2")
-    plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="0.3")
-    plt.plot(Epoch_dict['3'], test_loss_dict['3'], linewidth=2, color='y', label="0.4")
-    plt.plot(Epoch_dict['4'], test_loss_dict['4'], linewidth=2, color='m', label="0.5")
+    plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="0.4")
+    plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="0.5")
+    plt.plot(Epoch_dict['2'], test_loss_dict['2'], linewidth=2, color='b', label="0.6")
+
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -231,6 +229,6 @@ if __name__ == '__main__':
 
     #train(model)
     #batchsize_plot()
-    # hiddensize_plot()
+    #hiddensize_plot()
     embeddingsize_plot()
     dropout_plot()
