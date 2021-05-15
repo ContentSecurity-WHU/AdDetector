@@ -4,13 +4,17 @@ from ad_detector.ad_detector import AdDetector
 from ad_detector import config
 import re
 
-#URL = input("请输入您要鉴定的网页：")
-URL = r"https://www.zhihu.com/question/459215291"
+print('如是复制黏贴的网址，建议手动输入最后一个字母避免py3转义和打开网址')
+URL = input("请输入您要鉴定的网页：")
+#URL = r"https://www.zhihu.com/question/459215291"
 
 print(URL)
 hd={'user-agent': "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E; QQBrowser/7.0.3698.400)"}
 r = requests.get(URL,headers=hd)
 print(r)
+if r.status_code != 200 :
+    print('出现错误',r.status_code)
+
 r.encoding = r.apparent_encoding
 demo = r.text
 soup = BeautifulSoup(demo, 'html.parser')
@@ -27,7 +31,7 @@ for text in all_text:
         if is_chinese == 1:
             worth_texts.append(text)
 
-print(len(worth_texts))
+print('句子总数为',len(worth_texts))
 
 #判断是否为广告
 Ad_text = 0
