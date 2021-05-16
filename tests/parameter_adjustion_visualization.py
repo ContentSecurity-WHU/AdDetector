@@ -59,7 +59,8 @@ def batchsize_plot():
 
     plt.legend()
     plt.savefig("batchsize_plot.jpg")
-    plt.show()
+    plt.cla()
+    #plt.show()
 
 
 def hiddensize_plot():
@@ -77,7 +78,7 @@ def hiddensize_plot():
 
     # visualization
     # train_loss
-    plt.figure(1)
+    plt.figure(2)
     plt.subplot(1, 2, 1)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="32")
     plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="64")
@@ -93,7 +94,7 @@ def hiddensize_plot():
     plt.ylabel("loss", fontsize=14)
 
     # test_loss
-    plt.figure(1)
+    plt.figure(2)
     plt.subplot(1, 2, 2)
     plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="32")
     plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="64")
@@ -110,7 +111,8 @@ def hiddensize_plot():
 
     plt.legend()
     plt.savefig("hiddensize_plot.jpg")
-    plt.show()
+    plt.cla()
+    #plt.show()
 
 
 def embeddingsize_plot():
@@ -128,7 +130,7 @@ def embeddingsize_plot():
 
     # visualization
     # train_loss
-    plt.figure(1)
+    plt.figure(3)
     plt.subplot(1, 2, 1)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="32")
     plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="64")
@@ -144,7 +146,7 @@ def embeddingsize_plot():
     plt.ylabel("loss", fontsize=14)
 
     # test_loss
-    plt.figure(1)
+    plt.figure(3)
     plt.subplot(1, 2, 2)
     plt.plot(Epoch_dict['0'], test_loss_dict['0'], linewidth=2, color='r', label="32")
     plt.plot(Epoch_dict['1'], test_loss_dict['1'], linewidth=2, color='g', label="64")
@@ -161,6 +163,7 @@ def embeddingsize_plot():
 
     plt.legend()
     plt.savefig("embeddingsize_plot.jpg")
+    plt.cla()
     #plt.show()
 
 def learning_rate_plot():
@@ -178,12 +181,13 @@ def learning_rate_plot():
 
     # visualization
     # train_loss
-    plt.figure(1)
+    plt.figure(4)
     plt.subplot(1, 2, 1)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.0001")
     plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="0.001")
     plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="0.01")
     plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="0.1")
+
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -195,12 +199,13 @@ def learning_rate_plot():
     plt.ylabel("loss", fontsize=14)
 
     # test_loss
-    plt.figure(1)
+    plt.figure(4)
     plt.subplot(1, 2, 2)
     plt.plot(Epoch_dict['0'], train_loss_dict['0'], linewidth=2, color='r', label="0.0001")
     plt.plot(Epoch_dict['1'], train_loss_dict['1'], linewidth=2, color='g', label="0.001")
     plt.plot(Epoch_dict['2'], train_loss_dict['2'], linewidth=2, color='b', label="0.01")
     plt.plot(Epoch_dict['3'], train_loss_dict['3'], linewidth=2, color='y', label="0.1")
+
 
     plt.ylim((0, 1))
     x_ticks = np.arange(0, config.training.epochs, 0.5)
@@ -213,6 +218,7 @@ def learning_rate_plot():
 
     plt.legend()
     plt.savefig("learning_rate_plot.jpg")
+    plt.cla()
     #plt.show()
 
 if __name__ == '__main__':
@@ -226,8 +232,8 @@ if __name__ == '__main__':
         content_size=config.model.content_size,
     ).to(config.device)
 
-    #train(model)
+    train(model)
     #batchsize_plot()
     #hiddensize_plot()
     #embeddingsize_plot()
-    learning_rate_plot()
+    #learning_rate_plot()
