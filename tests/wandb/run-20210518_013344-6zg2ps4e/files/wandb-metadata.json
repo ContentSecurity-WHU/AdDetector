@@ -1,0 +1,24 @@
+{
+    "os": "Windows-10-10.0.19041-SP0",
+    "python": "3.8.8",
+    "heartbeatAt": "2021-05-17T17:33:53.731581",
+    "startedAt": "2021-05-17T17:33:44.969079",
+    "docker": null,
+    "gpu": "GeForce GTX 1050 Ti",
+    "gpu_count": 1,
+    "cpu_count": 12,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "C:/Users/loeoe/Desktop/GitHub/AdDetector/tests/parameter_adjustion_visualization.py",
+    "codePath": "tests\\parameter_adjustion_visualization.py",
+    "git": {
+        "remote": "https://github.com/ContentSecurity-WHU/AdDetector.git",
+        "commit": "84243e812fd7449d49a7f595545b5fc8357fd6b7"
+    },
+    "email": "2463870651@qq.com",
+    "root": "C:/Users/loeoe/Desktop/GitHub/AdDetector",
+    "host": "LEGION",
+    "username": "loeoe",
+    "executable": "C:\\Users\\loeoe\\Desktop\\GitHub\\AdDetector\\venv\\Scripts\\python.exe"
+}

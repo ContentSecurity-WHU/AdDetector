@@ -8,6 +8,7 @@ from ad_detector import config
 import matplotlib.pyplot as plt
 import numpy as np
 
+from wandb import magic
 
 def batchsize_plot():
     train_loss_dict = {}
